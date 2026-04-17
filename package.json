@@ -122,7 +122,6 @@
 		"stylelint-order": "8.x.x",
 		"three": "0.x.x",
 		"three-demo": "5.x.x",
-		"tslib": "2.x.x",
 		"tweakpane": "4.x.x",
 		"typescript": "6.0.x"
 	}
