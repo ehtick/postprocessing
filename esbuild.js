@@ -1,7 +1,7 @@
 import { createRequire } from "module";
-import { glsl } from "esbuild-plugin-glsl";
-import glob from "tiny-glob";
 import esbuild from "esbuild";
+import { glsl } from "esbuild-plugin-glsl";
+import { glob } from "node:fs/promises";
 
 const require = createRequire(import.meta.url);
 const pkg = require("./package");
@@ -19,7 +19,7 @@ const banner = `/**
  */`;
 
 const workers = {
-	entryPoints: await glob("./src/**/worker.js"),
+	entryPoints: await Array.fromAsync(glob("./src/**/worker.js")),
 	outExtension: { ".js": ".txt" },
 	outdir: "./temp",
 	target: "es2019",
@@ -42,7 +42,7 @@ const demo = {
 
 const manual = {
 	entryPoints: ["./manual/assets/js/src/index.js"]
-		.concat(await glob("./manual/assets/js/src/demos/*.js")),
+		.concat(await Array.fromAsync(glob("./manual/assets/js/src/demos/*.js"))),
 	outdir: "./manual/assets/js/dist",
 	logLevel: "info",
 	format: "iife",
