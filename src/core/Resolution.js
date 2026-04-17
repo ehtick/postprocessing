@@ -11,25 +11,21 @@ export class Resolution extends EventDispatcher {
 	/**
 	 * Constructs a new resolution.
 	 *
-	 * TODO Remove resizable param.
-	 * @param {Resizable} resizable - A resizable object.
+	 * @param {Resizable} [resizable=null] - Deprecated. Use `addEventListener("change", listener)` instead.
 	 * @param {Number} [width=Resolution.AUTO_SIZE] - The preferred width.
 	 * @param {Number} [height=Resolution.AUTO_SIZE] - The preferred height.
 	 * @param {Number} [scale=1.0] - A resolution scale.
 	 */
 
-	constructor(resizable, width = AUTO_SIZE, height = AUTO_SIZE, scale = 1.0) {
+	constructor(resizable = null, width = AUTO_SIZE, height = AUTO_SIZE, scale = 1.0) {
 
 		super();
 
-		/**
-		 * A resizable object.
-		 *
-		 * @type {Resizable}
-		 * @deprecated Use an event listener for "change" events instead.
-		 */
+		if(resizable !== null) {
 
-		this.resizable = resizable;
+			this.addEventListener("change", () => resizable.setSize(this.baseSize.width, this.baseSize.height));
+
+		}
 
 		/**
 		 * The base resolution.
@@ -212,7 +208,6 @@ export class Resolution extends EventDispatcher {
 			this.s = value;
 			this.preferredSize.setScalar(AUTO_SIZE);
 			this.dispatchEvent({ type: "change" });
-			this.resizable.setSize(this.baseSize.width, this.baseSize.height);
 
 		}
 
@@ -264,7 +259,6 @@ export class Resolution extends EventDispatcher {
 
 			this.baseSize.width = value;
 			this.dispatchEvent({ type: "change" });
-			this.resizable.setSize(this.baseSize.width, this.baseSize.height);
 
 		}
 
@@ -314,7 +308,6 @@ export class Resolution extends EventDispatcher {
 
 			this.baseSize.height = value;
 			this.dispatchEvent({ type: "change" });
-			this.resizable.setSize(this.baseSize.width, this.baseSize.height);
 
 		}
 
@@ -359,7 +352,6 @@ export class Resolution extends EventDispatcher {
 
 			this.baseSize.set(width, height);
 			this.dispatchEvent({ type: "change" });
-			this.resizable.setSize(this.baseSize.width, this.baseSize.height);
 
 		}
 
@@ -383,7 +375,6 @@ export class Resolution extends EventDispatcher {
 
 			this.preferredSize.width = value;
 			this.dispatchEvent({ type: "change" });
-			this.resizable.setSize(this.baseSize.width, this.baseSize.height);
 
 		}
 
@@ -435,7 +426,6 @@ export class Resolution extends EventDispatcher {
 
 			this.preferredSize.height = value;
 			this.dispatchEvent({ type: "change" });
-			this.resizable.setSize(this.baseSize.width, this.baseSize.height);
 
 		}
 
@@ -482,7 +472,6 @@ export class Resolution extends EventDispatcher {
 
 			this.preferredSize.set(width, height);
 			this.dispatchEvent({ type: "change" });
-			this.resizable.setSize(this.baseSize.width, this.baseSize.height);
 
 		}
 
@@ -500,7 +489,6 @@ export class Resolution extends EventDispatcher {
 		this.baseSize.set(resolution.baseWidth, resolution.baseHeight);
 		this.preferredSize.set(resolution.preferredWidth, resolution.preferredHeight);
 		this.dispatchEvent({ type: "change" });
-		this.resizable.setSize(this.baseSize.width, this.baseSize.height);
 
 	}
 
