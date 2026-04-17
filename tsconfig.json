@@ -6,20 +6,25 @@
 		"./types"
 	],
 	"compilerOptions": {
-		"baseUrl": ".",
+		// File Layout
+		"rootDir": ".",
 		"outDir": "./build",
-		"moduleResolution": "bundler",
-		"module": "es2022",
-		"target": "es2022",
-		"strict": true,
-		"allowJs": true,
-		"sourceMap": false,
-		"skipLibCheck": true,
-		"resolveJsonModule": true,
-		"noImplicitOverride": true,
 		"paths": {
 			"postprocessing": ["./src/index.js"],
-			"temp": ["./temp"]
-		}
+			"temp/*": ["./temp/*"]
+		},
+		// Environment Settings
+		"module": "esnext",
+		"target": "es2025",
+		"moduleResolution": "bundler",
+		"types": ["node"],
+		// Style Options
+		"noImplicitReturns": true,
+		"noImplicitOverride": true,
+		// Other
+		"allowJs": true,
+		"resolveJsonModule": true,
+		"sourceMap": false,
+		"skipLibCheck": true
 	}
 }
